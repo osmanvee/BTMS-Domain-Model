@@ -13,7 +13,7 @@ public class BtmsApplication {
 	 */
 	public static void main(String[] args) {
 		// Step 1
-		// TODO
+		BTMS btms = new BTMS();
 		
 		printBtmsStatistics(btms);
 		
