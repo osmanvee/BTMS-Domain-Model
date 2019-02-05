@@ -1,0 +1,78 @@
+namespace ca.mcgill.ecse.btms.model;
+
+class BTMS {
+  1 <@>- * BusVehicle vehicles;
+  //Multiplicity Composition Multiplicity ClassName RoleName
+  // TODO: routes
+  1 <@>- * Route routes;
+  1 <@>- * RouteAssignment assignments;
+  1 <@>- * Driver drivers;
+  1 <@>- * DriverSchedule schedule;
+  // TODO: assignments
+  // TODO: drivers
+  // TODO: schedule
+   
+  public java.util.Date getCurrentDate() {
+    java.util.Calendar cal = java.util.Calendar.getInstance();
+    cal.set(Calendar.HOUR_OF_DAY, 0);
+    cal.set(Calendar.MINUTE, 0);
+    cal.set(Calendar.SECOND, 0);
+    cal.set(Calendar.MILLISECOND, 0);
+    java.util.Date date = cal.getTime();
+    return date;
+  }
+  
+}
+
+class BusVehicle {
+  String licencePlate;
+  //By Default the attribute is a String
+  before constructor, setLicencePlate {
+    if (aLicencePlate == null || aLicencePlate.length() == 0) {
+	  throw new RuntimeException("The licence plate of a bus cannot be empty.");
+	}
+	if (aLicencePlate.length() > 10) {
+	  throw new RuntimeException("The licence plate of a bus cannot be longer than 10 characters.");
+	}
+  }
+  // TODO: inRepairShop
+   Boolean inRepairShop; 
+}
+
+class Route {
+  Integer number;
+}
+
+class RouteAssignment {
+  Integer date;
+  * -- 1 BusVehicle bus;
+  * -- 1 Route route;
+}
+
+class Driver {
+  String name;
+  // TODO: validation for name
+  before name {
+    if (aName == null || aName.length() == 0) {
+	  throw new RuntimeException("The name cannot be empty.");
+	}
+
+  
+  autounique id;
+  Boolean onSickLeave;
+}
+
+class DriverSchedule {
+  // TODO: enum Shif
+ enum Shift { Morning, Afternoon, Night};
+ Shift shift;
+  
+  * -- 1 Driver driver; 
+  * -- 1 RouteAssignment assignment;
+  
+  
+  Shift shift;
+  * -- 1 Driver driver;
+  // TODO: assignment
+  0..* -- 1 RouteAssignment assignment;
+}
